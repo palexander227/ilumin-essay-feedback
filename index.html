@@ -461,7 +461,6 @@
     // "not connected yet" notice instead of attempting to submit.
     // ===================================================================
     const SUBMISSION_ENDPOINT = 'https://script.google.com/macros/s/AKfycby3_c2J8stTjzD6a6_XYSbmSEOLEIFMvOLrXnn_GzjXRg-kUgzgg-unC1ANLcLaE0Sigw/exec';
-    const ENDPOINT_PLACEHOLDER = 'https://script.google.com/macros/s/AKfycby3_c2J8stTjzD6a6_XYSbmSEOLEIFMvOLrXnn_GzjXRg-kUgzgg-unC1ANLcLaE0Sigw/exec';
 
     const TOOLS = [
       {
@@ -577,8 +576,7 @@
       // Only submit when a real deployed endpoint has been configured.
       // (Guard against the untouched placeholder or an obviously-wrong URL.)
       const isConfigured =
-        endpoint &&
-        endpoint !== ENDPOINT_PLACEHOLDER &&
+        endpoint.length > 0 &&
         endpoint.indexOf('/exec') !== -1;
 
       if (!isConfigured) {
