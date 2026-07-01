@@ -448,6 +448,21 @@
   </main>
 
   <script>
+    // ===================================================================
+    // SUBMISSION ENDPOINT CONFIGURATION  (the only line you normally edit)
+    // -------------------------------------------------------------------
+    // Paste your deployed Google Apps Script web-app "/exec" URL below.
+    // You get this URL from the Apps Script editor:
+    //   Deploy > New deployment > Web app  (Execute as: Me,
+    //   Who has access: Anyone). See:
+    //   docs/development/GOOGLE_SHEETS_CONNECTION_SETUP.md
+    //
+    // While this is left as the placeholder, the form will show a polite
+    // "not connected yet" notice instead of attempting to submit.
+    // ===================================================================
+    const SUBMISSION_ENDPOINT = 'https://script.google.com/macros/s/AKfycby3_c2J8stTjzD6a6_XYSbmSEOLEIFMvOLrXnn_GzjXRg-kUgzgg-unC1ANLcLaE0Sigw/exec';
+    const ENDPOINT_PLACEHOLDER = 'https://script.google.com/macros/s/AKfycby3_c2J8stTjzD6a6_XYSbmSEOLEIFMvOLrXnn_GzjXRg-kUgzgg-unC1ANLcLaE0Sigw/exec';
+
     const TOOLS = [
       {
         key: 'topic_distribution',
@@ -551,8 +566,6 @@
       return payload;
     }
 
-    const SUBMISSION_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzRcRGEoDTFxeEUXkZU8OiicFo0dSXx4094iVpnpmO7SSU4bCHbogiUGLJpsJ4Ca0zjvA/exec';
-
     function handleSubmit(event) {
       event.preventDefault();
       const status = document.getElementById('status');
@@ -561,7 +574,14 @@
 
       status.className = 'status';
 
-      if (!endpoint || endpoint.includes('https://script.google.com/macros/s/AKfycbzRcRGEoDTFxeEUXkZU8OiicFo0dSXx4094iVpnpmO7SSU4bCHbogiUGLJpsJ4Ca0zjvA/exec')) {
+      // Only submit when a real deployed endpoint has been configured.
+      // (Guard against the untouched placeholder or an obviously-wrong URL.)
+      const isConfigured =
+        endpoint &&
+        endpoint !== ENDPOINT_PLACEHOLDER &&
+        endpoint.indexOf('/exec') !== -1;
+
+      if (!isConfigured) {
         status.className = 'status error';
         status.textContent = 'This form is not connected yet. Please contact the project lead.';
         return;
