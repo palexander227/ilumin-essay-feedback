@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #667085;
+      --line: #d8dee8;
+      --soft: #f5f8fc;
+      --panel: #ffffff;
+      --blue: #244c78;
+      --blue-2: #34699a;
+      --aqua: #45b8ac;
+      --gold: #c89b3c;
+      --shadow: 0 24px 60px rgba(18, 34, 54, 0.16);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(69, 184, 172, 0.20), transparent 30rem),
+        radial-gradient(circle at top right, rgba(36, 76, 120, 0.20), transparent 34rem),
+        linear-gradient(180deg, #f7fafc 0%, #eef3f8 48%, #f8fafc 100%);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 34px 22px 52px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 34px;
+      color: white;
+      background:
+        linear-gradient(135deg, rgba(20, 35, 58, 0.97), rgba(36, 76, 120, 0.95) 56%, rgba(41, 112, 133, 0.95));
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -140px auto;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(255,255,255,0.16), transparent 62%);
+      transform: rotate(18deg);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.88);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--aqua);
+      box-shadow: 0 0 0 5px rgba(69, 184, 172, 0.18);
+    }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      max-width: 780px;
+      font-size: clamp(34px, 5vw, 60px);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero p {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: rgba(255,255,255,0.84);
+      font-size: 17px;
+      line-height: 1.62;
+    }
+
+    .hero-actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    button, .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      appearance: none;
+      border: none;
+      border-radius: 999px;
+      padding: 13px 18px;
+      font-weight: 750;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    button:hover, .button:hover { transform: translateY(-1px); }
+    button:disabled { cursor: wait; opacity: .68; transform: none; }
+
+    .primary {
+      color: #0d2235;
+      background: linear-gradient(135deg, #ffffff, #dff6f2);
+      box-shadow: 0 14px 28px rgba(0,0,0,0.18);
+    }
+
+    .secondary {
+      color: white;
+      background: rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.28);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 0.78fr 1.22fr;
+      gap: 24px;
+      align-items: start;
+      margin-top: 24px;
+    }
+
+    .panel {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(216, 222, 232, 0.82);
+      border-radius: var(--radius);
+      box-shadow: 0 18px 45px rgba(26, 45, 68, 0.10);
+    }
+
+    .intro {
+      position: sticky;
+      top: 18px;
+      padding: 24px;
+    }
+
+    .intro h2, .form-card h2 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .intro p {
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0 0 18px;
+    }
+
+    .note-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .note {
+      border-left: 4px solid var(--aqua);
+      padding: 12px 13px;
+      border-radius: 12px;
+      background: #f7fbfc;
+      color: #344054;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    form {
+      display: grid;
+      gap: 18px;
+    }
+
+    .form-card {
+      padding: 24px;
+    }
+
+    .section-kicker {
+      color: var(--blue-2);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #344054;
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 13px;
+      color: var(--ink);
+      background: white;
+      font: inherit;
+      outline: none;
+      transition: border .16s ease, box-shadow .16s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(52, 105, 154, 0.72);
+      box-shadow: 0 0 0 4px rgba(52, 105, 154, 0.12);
+    }
+
+    textarea { min-height: 104px; resize: vertical; }
+
+    .tool-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+      margin-top: 14px;
+      background: linear-gradient(180deg, #ffffff, #f9fbfd);
+    }
+
+    .tool-head {
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .tool-title {
+      margin: 0;
+      font-size: 17px;
+      letter-spacing: -0.02em;
+    }
+
+    .tool-desc {
+      margin: 5px 0 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 13px;
+    }
+
+    .badge {
+      white-space: nowrap;
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: #edf7f6;
+      color: #136b62;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .rating-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .submit-bar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 20px 24px;
+    }
+
+    .submit {
+      color: white;
+      background: linear-gradient(135deg, var(--blue), var(--aqua));
+      box-shadow: 0 18px 32px rgba(36, 76, 120, 0.22);
+    }
+
+    .status {
+      min-height: 22px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-right: auto;
+    }
+
+    .success {
+      color: #0f7a54;
+      font-weight: 750;
+    }
+
+    .error {
+      color: #b42318;
+      font-weight: 750;
+    }
+
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      color: #7b8794;
+      font-size: 12px;
+    }
+
+    @media (max-width: 880px) {
+      .grid { grid-template-columns: 1fr; }
+      .intro { position: static; }
+      .field-grid, .rating-row { grid-template-columns: 1fr; }
+      .hero { padding: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow"><span class="dot"></span> Consultant feedback request</div>
+      <h1>Help shape Ilumin's essay analytics tools.</h1>
+      <p>
+        We are evaluating a small set of essay-support tools for admissions consulting. Your judgment will help us decide which tools are genuinely useful, which require careful guardrails, and which should not be prioritized.
+      </p>
+      <div class="hero-actions">
+        <a class="button primary" id="briefingLink" href="assets/Ilumin_Essay_Tools_Briefing.pdf" download>Download project briefing PDF</a>
+        <a class="button secondary" href="#feedback">Go to feedback form</a>
+      </div>
+    </section>
+
+    <section class="grid" id="feedback">
+      <aside class="panel intro">
+        <h2>What we are asking</h2>
+        <p>
+          Please rate each proposed tool for practical usefulness and implementation priority. We are especially interested in where these tools could improve consultant judgment without replacing it.
+        </p>
+        <div class="note-list">
+          <div class="note"><strong>Human-centered:</strong> these tools are intended to support expert consultants, not automate admissions advice.</div>
+          <div class="note"><strong>Evidence-based:</strong> we want tools grounded in prior essays, application context, and responsible analytics.</div>
+          <div class="note"><strong>Careful by design:</strong> concerns about bias, over-scoring, over-standardization, or misuse are especially valuable.</div>
+        </div>
+      </aside>
+
+      <form class="panel" id="feedbackForm" onsubmit="handleSubmit(event)">
+        <section class="form-card">
+          <div class="section-kicker">Respondent</div>
+          <h2>Your perspective</h2>
+          <div class="field-grid">
+            <div>
+              <label for="consultant_name">Name *</label>
+              <input id="consultant_name" name="consultant_name" required placeholder="Your name">
+            </div>
+            <div>
+              <label for="role_or_team">Role / team</label>
+              <input id="role_or_team" name="role_or_team" placeholder="Consultant, essay specialist, counselor...">
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="Optional">
+            </div>
+            <div>
+              <label for="years_experience">Admissions experience</label>
+              <select id="years_experience" name="years_experience">
+                <option value="">Select one</option>
+                <option>0-2 years</option>
+                <option>3-5 years</option>
+                <option>6-10 years</option>
+                <option>10+ years</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-top:14px;">
+            <label for="primary_student_segments">What kinds of students do you most often support?</label>
+            <textarea id="primary_student_segments" name="primary_student_segments" placeholder="Example: STEM applicants, UC applicants, high-achieving private school students, first-generation students, humanities applicants..."></textarea>
+          </div>
+        </section>
+
+        <section class="form-card">
+          <div class="section-kicker">Proposed tools</div>
+          <h2>Essay materials and analytics</h2>
+          <div id="toolCards"></div>
+        </section>
+
+        <section class="form-card">
+          <div class="section-kicker">Overall judgment</div>
+          <h2>What should we build first?</h2>
+          <div class="field-grid">
+            <div>
+              <label for="highest_value_tool">Highest-value tool</label>
+              <select id="highest_value_tool" name="highest_value_tool">
+                <option value="">Select one</option>
+                <option>Past essay topic distribution with outcome context</option>
+                <option>Essay topic recommender</option>
+                <option>Essay scorer</option>
+                <option>Essay ranker / comparison tool</option>
+                <option>School recommender from Common App statement</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div>
+              <label for="missing_tools_or_features">Missing tool or feature</label>
+              <input id="missing_tools_or_features" name="missing_tools_or_features" placeholder="Optional short answer">
+            </div>
+          </div>
+          <div style="margin-top:14px;">
+            <label for="workflow_fit">Where would this fit in your essay workflow?</label>
+            <textarea id="workflow_fit" name="workflow_fit" placeholder="Tell us when you would use these tools: brainstorming, topic selection, draft review, final polish, school list strategy, etc."></textarea>
+          </div>
+          <div style="margin-top:14px;">
+            <label for="concerns_or_red_lines">Concerns, red lines, or guardrails</label>
+            <textarea id="concerns_or_red_lines" name="concerns_or_red_lines" placeholder="What would make a tool misleading, risky, unhelpful, or inappropriate for consultant use?"></textarea>
+          </div>
+          <div style="margin-top:14px;">
+            <label for="other_comments">Other comments</label>
+            <textarea id="other_comments" name="other_comments" placeholder="Anything else you want us to know."></textarea>
+          </div>
+        </section>
+
+        <div class="submit-bar">
+          <div class="status" id="status"></div>
+          <button type="submit" class="submit" id="submitButton">Submit feedback</button>
+        </div>
+      </form>
+    </section>
+    <div class="footer">Ilumin Admissions Analytics - consultant-centered tool design</div>
+  </main>
+
+  <script>
+    const TOOLS = [
+      {
+        key: 'topic_distribution',
+        title: 'Past essay topic distribution with outcome context',
+        tag: 'Evidence map',
+        desc: 'Summarize what essay topics have appeared in prior applications, with careful context around outcomes where validated data is available.'
+      },
+      {
+        key: 'topic_recommender',
+        title: 'Essay topic recommender',
+        tag: 'Brainstorming',
+        desc: 'Suggest promising essay directions from a student\'s activities, background, and essay prompt, while preserving consultant judgment.'
+      },
+      {
+        key: 'essay_scorer',
+        title: 'Essay scorer',
+        tag: 'Review support',
+        desc: 'Provide structured feedback on clarity, specificity, voice, risk, distinctiveness, and alignment with the prompt.'
+      },
+      {
+        key: 'essay_ranker',
+        title: 'Essay ranker / comparison tool',
+        tag: 'Comparison',
+        desc: 'Compare essay drafts or compare a student\'s essay against anonymized patterns from past essays to support revision decisions.'
+      },
+      {
+        key: 'school_recommender',
+        title: 'School recommender from Common App statement',
+        tag: 'School fit',
+        desc: 'Identify schools that may value themes, interests, or strengths reflected in the Common App main statement.'
+      }
+    ];
+
+    function renderTools() {
+      const container = document.getElementById('toolCards');
+      container.innerHTML = TOOLS.map(tool => `
+        <article class="tool-card">
+          <div class="tool-head">
+            <div>
+              <h3 class="tool-title">${tool.title}</h3>
+              <p class="tool-desc">${tool.desc}</p>
+            </div>
+            <span class="badge">${tool.tag}</span>
+          </div>
+          <div class="rating-row">
+            <div>
+              <label for="${tool.key}_usefulness">Practical usefulness</label>
+              <select id="${tool.key}_usefulness" name="${tool.key}_usefulness">
+                <option value="">Select one</option>
+                <option value="5 - Very useful">5 - Very useful</option>
+                <option value="4 - Useful">4 - Useful</option>
+                <option value="3 - Possibly useful">3 - Possibly useful</option>
+                <option value="2 - Limited usefulness">2 - Limited usefulness</option>
+                <option value="1 - Not useful">1 - Not useful</option>
+              </select>
+            </div>
+            <div>
+              <label for="${tool.key}_priority">Build priority</label>
+              <select id="${tool.key}_priority" name="${tool.key}_priority">
+                <option value="">Select one</option>
+                <option>Build soon</option>
+                <option>Promising, but later</option>
+                <option>Needs more definition</option>
+                <option>Use with strong guardrails</option>
+                <option>Do not prioritize</option>
+              </select>
+            </div>
+          </div>
+          <label for="${tool.key}_comments">Comments on this tool</label>
+          <textarea id="${tool.key}_comments" name="${tool.key}_comments" placeholder="What would make this tool genuinely useful? What should we avoid?"></textarea>
+        </article>
+      `).join('');
+    }
+
+    function collectPayload() {
+      const form = document.getElementById('feedbackForm');
+      const data = new FormData(form);
+      const payload = {
+        consultant_name: data.get('consultant_name'),
+        role_or_team: data.get('role_or_team'),
+        email: data.get('email'),
+        years_experience: data.get('years_experience'),
+        primary_student_segments: data.get('primary_student_segments'),
+        highest_value_tool: data.get('highest_value_tool'),
+        workflow_fit: data.get('workflow_fit'),
+        concerns_or_red_lines: data.get('concerns_or_red_lines'),
+        missing_tools_or_features: data.get('missing_tools_or_features'),
+        other_comments: data.get('other_comments'),
+        user_agent: navigator.userAgent,
+        tools: {}
+      };
+
+      TOOLS.forEach(tool => {
+        payload.tools[tool.key] = {
+          usefulness: data.get(`${tool.key}_usefulness`),
+          priority: data.get(`${tool.key}_priority`),
+          comments: data.get(`${tool.key}_comments`)
+        };
+      });
+
+      return payload;
+    }
+
+    const SUBMISSION_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzRcRGEoDTFxeEUXkZU8OiicFo0dSXx4094iVpnpmO7SSU4bCHbogiUGLJpsJ4Ca0zjvA/exec';
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      const status = document.getElementById('status');
+      const button = document.getElementById('submitButton');
+      const endpoint = SUBMISSION_ENDPOINT.trim();
+
+      status.className = 'status';
+
+      if (!endpoint || endpoint.includes('https://script.google.com/macros/s/AKfycbzRcRGEoDTFxeEUXkZU8OiicFo0dSXx4094iVpnpmO7SSU4bCHbogiUGLJpsJ4Ca0zjvA/exec')) {
+        status.className = 'status error';
+        status.textContent = 'This form is not connected yet. Please contact the project lead.';
+        return;
+      }
+
+      status.textContent = 'Submitting...';
+      button.disabled = true;
+
+      submitViaHiddenForm(endpoint, collectPayload(), () => {
+        status.className = 'status success';
+        status.textContent = 'Thank you. Your feedback has been recorded.';
+        document.getElementById('feedbackForm').reset();
+        button.disabled = false;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, () => {
+        status.className = 'status error';
+        status.textContent = 'The response may not have been submitted. Please refresh and try again, or contact the project lead.';
+        button.disabled = false;
+      });
+    }
+
+    function submitViaHiddenForm(endpoint, payload, onSuccess, onError) {
+      const frameName = `feedback_submit_${Date.now()}`;
+      const iframe = document.createElement('iframe');
+      iframe.name = frameName;
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = endpoint;
+      form.target = frameName;
+      form.style.display = 'none';
+
+      const payloadField = document.createElement('input');
+      payloadField.type = 'hidden';
+      payloadField.name = 'payload';
+      payloadField.value = JSON.stringify(payload);
+      form.appendChild(payloadField);
+
+      document.body.appendChild(form);
+
+      let completed = false;
+      const cleanup = () => {
+        setTimeout(() => {
+          form.remove();
+          iframe.remove();
+        }, 500);
+      };
+
+      iframe.onload = () => {
+        if (completed) return;
+        completed = true;
+        cleanup();
+        onSuccess();
+      };
+
+      try {
+        form.submit();
+        setTimeout(() => {
+          if (!completed) {
+            completed = true;
+            cleanup();
+            onSuccess();
+          }
+        }, 1600);
+      } catch (err) {
+        cleanup();
+        onError(err);
+      }
+    }
+
+    renderTools();
+  </script>
+</body>
+</html>
