@@ -1,0 +1,2759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Ilumin consultant survey on college-essay quality, human judgment, and supportive analytics capabilities."
+  >
+  <title>Ilumin Essay Evaluation Survey</title>
+
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #667085;
+      --line: #d8dee8;
+      --line-strong: #b9c5d4;
+      --soft: #f5f8fc;
+      --panel: #ffffff;
+      --blue: #244c78;
+      --blue-2: #34699a;
+      --aqua: #45b8ac;
+      --aqua-soft: #e7f7f4;
+      --gold: #c89b3c;
+      --danger: #b42318;
+      --danger-soft: #fff1f0;
+      --success: #0f7a54;
+      --success-soft: #ecfdf3;
+      --shadow: 0 24px 60px rgba(18, 34, 54, 0.16);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(69, 184, 172, 0.20), transparent 30rem),
+        radial-gradient(circle at top right, rgba(36, 76, 120, 0.20), transparent 34rem),
+        linear-gradient(180deg, #f7fafc 0%, #eef3f8 48%, #f8fafc 100%);
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button,
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: 999px;
+      padding: 13px 18px;
+      appearance: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 750;
+      text-decoration: none;
+      transition:
+        transform 0.16s ease,
+        box-shadow 0.16s ease,
+        background 0.16s ease,
+        border-color 0.16s ease;
+    }
+
+    button:hover,
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    button:focus-visible,
+    .button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    [role="button"]:focus-visible {
+      outline: 3px solid rgba(69, 184, 172, 0.42);
+      outline-offset: 3px;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.52;
+      transform: none;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 52px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 36px;
+      color: white;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(20, 35, 58, 0.98),
+          rgba(36, 76, 120, 0.96) 56%,
+          rgba(41, 112, 133, 0.95)
+        );
+      box-shadow: var(--shadow);
+    }
+
+    .hero::before,
+    .hero::after {
+      position: absolute;
+      content: "";
+      pointer-events: none;
+      border-radius: 50%;
+    }
+
+    .hero::before {
+      top: -190px;
+      right: -120px;
+      width: 430px;
+      height: 430px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.14), transparent 66%);
+    }
+
+    .hero::after {
+      right: 150px;
+      bottom: -230px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(69, 184, 172, 0.20), transparent 65%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.10);
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--aqua);
+      box-shadow: 0 0 0 5px rgba(69, 184, 172, 0.18);
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: 0;
+      font-size: clamp(36px, 5.4vw, 64px);
+      line-height: 0.98;
+      letter-spacing: -0.047em;
+    }
+
+    .hero p {
+      max-width: 820px;
+      margin: 20px 0 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 17px;
+      line-height: 1.66;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .primary {
+      color: #0d2235;
+      background: linear-gradient(135deg, #ffffff, #dff6f2);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+    }
+
+    .secondary {
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: white;
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .hero-chip {
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.78);
+      background: rgba(12, 29, 48, 0.18);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 0.76fr 1.24fr;
+      gap: 24px;
+      align-items: start;
+      margin-top: 24px;
+    }
+
+    .panel {
+      border: 1px solid rgba(216, 222, 232, 0.86);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 18px 45px rgba(26, 45, 68, 0.10);
+      backdrop-filter: blur(18px);
+    }
+
+    .intro {
+      position: sticky;
+      top: 18px;
+      padding: 24px;
+    }
+
+    .intro h2 {
+      margin: 0 0 10px;
+      font-size: 21px;
+      letter-spacing: -0.025em;
+    }
+
+    .intro > p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.58;
+    }
+
+    .principles {
+      display: grid;
+      gap: 11px;
+      margin-top: 18px;
+    }
+
+    .principle {
+      padding: 12px 13px;
+      border-left: 4px solid var(--aqua);
+      border-radius: 12px;
+      color: #344054;
+      background: #f7fbfc;
+      font-size: 13px;
+      line-height: 1.48;
+    }
+
+    .survey-map {
+      display: grid;
+      gap: 9px;
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .survey-map li {
+      display: grid;
+      grid-template-columns: 29px 1fr;
+      gap: 10px;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .survey-map span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 29px;
+      height: 29px;
+      border: 1px solid #cfd9e5;
+      border-radius: 50%;
+      color: var(--blue);
+      background: white;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .survey-map div {
+      color: #475467;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .intro-footer {
+      margin-top: 22px;
+      padding-top: 17px;
+      border-top: 1px solid var(--line);
+      color: #7b8794;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    form.panel {
+      overflow: hidden;
+    }
+
+    .success-banner {
+      margin: 20px 24px 0;
+      padding: 16px 17px;
+      border: 1px solid #abefc6;
+      border-radius: 15px;
+      color: #05603a;
+      background: var(--success-soft);
+      line-height: 1.48;
+    }
+
+    .success-banner strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .form-card {
+      padding: 26px;
+    }
+
+    .form-card + .form-card {
+      border-top: 1px solid rgba(216, 222, 232, 0.85);
+    }
+
+    .section-kicker {
+      margin-bottom: 8px;
+      color: var(--blue-2);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .form-card h2 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.18;
+      letter-spacing: -0.028em;
+    }
+
+    .section-intro {
+      margin: 9px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .question-heading {
+      display: grid;
+      grid-template-columns: 39px 1fr;
+      gap: 13px;
+      align-items: start;
+    }
+
+    .question-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 39px;
+      height: 39px;
+      border-radius: 13px;
+      color: white;
+      background: linear-gradient(145deg, var(--blue), var(--blue-2));
+      box-shadow: 0 8px 18px rgba(36, 76, 120, 0.18);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .question-copy h2 {
+      margin-top: 1px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 19px;
+    }
+
+    .field {
+      min-width: 0;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label,
+    .field-label {
+      display: block;
+      margin-bottom: 6px;
+      color: #344054;
+      font-size: 13px;
+      font-weight: 780;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 13px;
+      color: var(--ink);
+      background: white;
+      outline: none;
+      transition:
+        border 0.16s ease,
+        box-shadow 0.16s ease,
+        background 0.16s ease;
+    }
+
+    input:hover,
+    select:hover,
+    textarea:hover {
+      border-color: var(--line-strong);
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(52, 105, 154, 0.72);
+      box-shadow: 0 0 0 4px rgba(52, 105, 154, 0.12);
+    }
+
+    textarea {
+      min-height: 112px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    textarea.long-response {
+      min-height: 180px;
+    }
+
+    .help-text {
+      margin: 7px 0 0;
+      color: #7b8794;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .rank-instructions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 19px;
+      padding: 11px 13px;
+      border: 1px solid #d9e4ef;
+      border-radius: 13px;
+      color: #475467;
+      background: #f7fafc;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .rank-instructions strong {
+      color: var(--blue);
+    }
+
+    .rank-list {
+      display: grid;
+      gap: 10px;
+      margin: 13px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .rank-item {
+      display: grid;
+      grid-template-columns: 28px 36px minmax(0, 1fr) auto;
+      gap: 11px;
+      align-items: center;
+      min-width: 0;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: linear-gradient(180deg, #ffffff, #f9fbfd);
+      transition:
+        border-color 0.16s ease,
+        box-shadow 0.16s ease,
+        transform 0.16s ease,
+        opacity 0.16s ease;
+    }
+
+    .rank-item:hover {
+      border-color: #b9cadd;
+      box-shadow: 0 8px 20px rgba(31, 55, 82, 0.07);
+    }
+
+    .rank-item.dragging {
+      opacity: 0.48;
+      border-color: var(--aqua);
+      box-shadow: 0 10px 26px rgba(31, 95, 100, 0.15);
+    }
+
+    .drag-handle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 36px;
+      border-radius: 9px;
+      color: #7f8b99;
+      cursor: grab;
+      user-select: none;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .drag-handle:active {
+      cursor: grabbing;
+    }
+
+    .rank-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      color: white;
+      background: var(--blue);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .rank-copy {
+      min-width: 0;
+    }
+
+    .rank-title {
+      margin: 0;
+      color: #26364a;
+      font-size: 14px;
+      font-weight: 850;
+      line-height: 1.35;
+    }
+
+    .rank-desc {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.44;
+    }
+
+    .rank-copy .other-input {
+      margin-top: 10px;
+    }
+
+    .rank-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .icon-button {
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--blue);
+      background: white;
+      box-shadow: none;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .icon-button:hover {
+      border-color: #9cb2ca;
+      background: #f3f7fb;
+    }
+
+    .choice-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 19px;
+    }
+
+    .selection-counter {
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: var(--blue);
+      background: #edf4fb;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .selection-counter.complete {
+      color: #05603a;
+      background: var(--success-soft);
+    }
+
+    .selection-counter.warning {
+      color: var(--danger);
+      background: var(--danger-soft);
+    }
+
+    .choice-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .choice-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #ffffff;
+      transition:
+        border-color 0.16s ease,
+        background 0.16s ease,
+        box-shadow 0.16s ease,
+        opacity 0.16s ease;
+    }
+
+    .choice-card.selected {
+      border-color: rgba(69, 184, 172, 0.78);
+      background: #f4fbfa;
+      box-shadow: 0 8px 20px rgba(27, 111, 105, 0.07);
+    }
+
+    .choice-card.disabled {
+      opacity: 0.55;
+    }
+
+    .choice-main {
+      display: grid;
+      grid-template-columns: 21px 1fr;
+      gap: 11px;
+      align-items: start;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .choice-main input {
+      width: 18px;
+      height: 18px;
+      margin: 2px 0 0;
+      accent-color: var(--blue-2);
+    }
+
+    .choice-title {
+      display: block;
+      color: #26364a;
+      font-size: 14px;
+      font-weight: 840;
+      line-height: 1.37;
+    }
+
+    .choice-desc {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 450;
+      line-height: 1.45;
+    }
+
+    .choice-other {
+      margin: 12px 0 0 32px;
+    }
+
+    .weight-grid {
+      display: grid;
+      gap: 11px;
+      margin-top: 19px;
+    }
+
+    .weight-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 112px;
+      gap: 18px;
+      align-items: center;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: linear-gradient(180deg, #ffffff, #fafbfd);
+    }
+
+    .weight-title {
+      margin: 0;
+      color: #26364a;
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .weight-desc {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.44;
+    }
+
+    .weight-input-wrap {
+      position: relative;
+    }
+
+    .weight-input-wrap input {
+      padding-right: 32px;
+      text-align: right;
+      font-weight: 850;
+    }
+
+    .percent-mark {
+      position: absolute;
+      top: 50%;
+      right: 13px;
+      transform: translateY(-50%);
+      color: #7b8794;
+      font-size: 13px;
+      font-weight: 800;
+      pointer-events: none;
+    }
+
+    .total-card {
+      margin-top: 13px;
+      padding: 15px;
+      border: 1px solid #cfdbe7;
+      border-radius: 17px;
+      background: #f6f9fc;
+    }
+
+    .total-topline {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      color: #475467;
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .total-value {
+      color: var(--blue);
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .total-card.complete {
+      border-color: #abefc6;
+      background: var(--success-soft);
+    }
+
+    .total-card.complete .total-value {
+      color: var(--success);
+    }
+
+    .total-card.over {
+      border-color: #f7b6b2;
+      background: var(--danger-soft);
+    }
+
+    .total-card.over .total-value {
+      color: var(--danger);
+    }
+
+    .progress-track {
+      height: 8px;
+      margin-top: 11px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #dce5ee;
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--blue-2), var(--aqua));
+      transition: width 0.18s ease;
+    }
+
+    .open-response-grid {
+      display: grid;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .open-response {
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, #ffffff, #fafbfd);
+    }
+
+    .open-response h3 {
+      margin: 0;
+      color: #26364a;
+      font-size: 16px;
+      line-height: 1.4;
+      letter-spacing: -0.012em;
+    }
+
+    .open-response p {
+      margin: 7px 0 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .technology-section {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(231, 247, 244, 0.58), rgba(255, 255, 255, 0.15));
+    }
+
+    .technology-section::before {
+      position: absolute;
+      top: 0;
+      left: 26px;
+      right: 26px;
+      height: 4px;
+      border-radius: 0 0 999px 999px;
+      content: "";
+      background: linear-gradient(90deg, var(--blue-2), var(--aqua));
+    }
+
+    .technology-note {
+      margin-top: 16px;
+      padding: 12px 13px;
+      border: 1px solid #cce8e3;
+      border-radius: 13px;
+      color: #315d59;
+      background: rgba(255, 255, 255, 0.72);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .invalid-section {
+      border-radius: 16px;
+      box-shadow: inset 0 0 0 2px rgba(180, 35, 24, 0.28);
+      background-color: rgba(255, 241, 240, 0.36);
+    }
+
+    .submit-bar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 21px 26px;
+      border-top: 1px solid var(--line);
+      background: rgba(248, 250, 252, 0.80);
+    }
+
+    .submit {
+      color: white;
+      background: linear-gradient(135deg, var(--blue), var(--aqua));
+      box-shadow: 0 18px 32px rgba(36, 76, 120, 0.22);
+    }
+
+    .status {
+      min-height: 22px;
+      margin-right: auto;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .status.success {
+      color: var(--success);
+      font-weight: 780;
+    }
+
+    .status.error {
+      color: var(--danger);
+      font-weight: 780;
+    }
+
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      color: #7b8794;
+      font-size: 12px;
+    }
+
+    .sr-only {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .intro {
+        position: static;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .page {
+        width: min(100% - 20px, 1120px);
+        padding-top: 10px;
+      }
+
+      .hero {
+        padding: 27px 23px;
+        border-radius: 23px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-card {
+        padding: 22px 17px;
+      }
+
+      .success-banner {
+        margin: 16px 17px 0;
+      }
+
+      .question-heading {
+        grid-template-columns: 34px 1fr;
+        gap: 10px;
+      }
+
+      .question-number {
+        width: 34px;
+        height: 34px;
+        border-radius: 11px;
+      }
+
+      .rank-item {
+        grid-template-columns: 24px 34px minmax(0, 1fr);
+      }
+
+      .rank-actions {
+        grid-column: 2 / -1;
+        justify-content: flex-end;
+      }
+
+      .drag-handle {
+        width: 24px;
+      }
+
+      .rank-number {
+        width: 34px;
+        height: 34px;
+      }
+
+      .weight-card {
+        grid-template-columns: 1fr;
+        gap: 11px;
+      }
+
+      .weight-input-wrap {
+        max-width: 150px;
+      }
+
+      .submit-bar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 18px 17px;
+      }
+
+      .status {
+        margin: 0;
+      }
+
+      .submit {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <section class="hero" aria-labelledby="pageTitle">
+      <div class="hero-content">
+        <div class="eyebrow">
+          <span class="dot" aria-hidden="true"></span>
+          Consultant expertise survey
+        </div>
+
+        <h1 id="pageTitle">Help define what makes a college essay truly excellent.</h1>
+
+        <p>
+          Before we design analytical tools, we want to learn from the people who read,
+          coach, and refine essays every day. Your responses will help define the
+          evaluation framework—and then identify where technology can support, rather
+          than replace, expert judgment.
+        </p>
+
+        <div class="hero-actions">
+          <!-- Preserve this exact relative path: the PDF already lives in the repo's assets directory. -->
+          <a
+            class="button primary"
+            id="briefingLink"
+            href="assets/Ilumin_Essay_Tools_Briefing.pdf"
+            download
+          >
+            Download project briefing PDF
+          </a>
+
+          <a class="button secondary" href="#feedback">Begin the survey</a>
+        </div>
+
+        <div class="hero-meta" aria-label="Survey overview">
+          <span class="hero-chip">6 core questions</span>
+          <span class="hero-chip">Expert judgment first</span>
+          <span class="hero-chip">Technology considered last</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" id="feedback">
+      <aside class="panel intro" aria-labelledby="introTitle">
+        <h2 id="introTitle">Why your input comes first</h2>
+        <p>
+          This survey begins with your own standards, experiences, and professional
+          judgment. The final question then asks which capabilities could best support
+          that work.
+        </p>
+
+        <div class="principles">
+          <div class="principle">
+            <strong>Human-defined:</strong> the evaluation framework should begin with
+            consultant expertise—not with a preselected algorithm.
+          </div>
+
+          <div class="principle">
+            <strong>Nuance-preserving:</strong> we especially value the signals that
+            skilled counselors notice but simple scoring systems miss.
+          </div>
+
+          <div class="principle">
+            <strong>Supportive by design:</strong> future tools should strengthen
+            professional judgment, not substitute for it.
+          </div>
+        </div>
+
+        <ol class="survey-map" aria-label="Survey sections">
+          <li><span>1</span><div>Elements of successful essays</div></li>
+          <li><span>2</span><div>Why essays fall flat</div></li>
+          <li><span>3</span><div>Evaluation weights</div></li>
+          <li><span>4</span><div>What elevates an essay</div></li>
+          <li><span>5</span><div>What human expertise sees</div></li>
+          <li><span>6</span><div>Helpful future capabilities</div></li>
+        </ol>
+
+        <div class="intro-footer">
+          Rank items by dragging them or by using the arrow controls. Required fields
+          are marked with an asterisk.
+        </div>
+      </aside>
+
+      <form class="panel" id="feedbackForm" onsubmit="handleSubmit(event)">
+        <div
+          class="success-banner"
+          id="successBanner"
+          role="status"
+          aria-live="polite"
+          tabindex="-1"
+          hidden
+        >
+          <strong>Thank you—your response was submitted.</strong>
+          Your expertise will help define both the evaluation framework and the
+          supporting tools developed from it.
+        </div>
+
+        <section class="form-card" id="respondentSection">
+          <div class="section-kicker">Respondent</div>
+          <h2>Your perspective</h2>
+          <p class="section-intro">
+            A small amount of context will help us interpret your answers responsibly.
+          </p>
+
+          <div class="field-grid">
+            <div class="field">
+              <label for="consultant_name">Name *</label>
+              <input
+                id="consultant_name"
+                name="consultant_name"
+                autocomplete="name"
+                required
+                placeholder="Your name"
+              >
+            </div>
+
+            <div class="field">
+              <label for="role_or_team">Role / team</label>
+              <input
+                id="role_or_team"
+                name="role_or_team"
+                placeholder="Consultant, essay specialist, counselor..."
+              >
+            </div>
+
+            <div class="field">
+              <label for="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="Optional"
+              >
+            </div>
+
+            <div class="field">
+              <label for="years_experience">Admissions experience</label>
+              <select id="years_experience" name="years_experience">
+                <option value="">Select one</option>
+                <option value="0-2 years">0–2 years</option>
+                <option value="3-5 years">3–5 years</option>
+                <option value="6-10 years">6–10 years</option>
+                <option value="10+ years">10+ years</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="primary_student_segments">
+                What kinds of students do you most often support?
+              </label>
+              <textarea
+                id="primary_student_segments"
+                name="primary_student_segments"
+                placeholder="Example: STEM applicants, UC applicants, high-achieving private-school students, first-generation students, humanities applicants..."
+              ></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-card" id="question1Section">
+          <div class="question-heading">
+            <div class="question-number" aria-hidden="true">1</div>
+            <div class="question-copy">
+              <div class="section-kicker">Successful essays</div>
+              <h2>What are the most critical elements of a successful college essay?</h2>
+              <p class="section-intro">
+                Rank the six items below. Place the most important element first.
+              </p>
+            </div>
+          </div>
+
+          <div class="rank-instructions">
+            <span><strong>Rank 1</strong> = most critical</span>
+            <span>Drag items or use the ↑ and ↓ controls.</span>
+            <span>Leave “Other” sixth if you do not wish to add one.</span>
+          </div>
+
+          <ol class="rank-list" id="successRankList">
+            <li
+              class="rank-item"
+              data-key="authentic_voice_vulnerability"
+              data-label="Authentic Voice & Vulnerability"
+            >
+              <span
+                class="drag-handle"
+                draggable="true"
+                role="button"
+                tabindex="0"
+                aria-label="Drag Authentic Voice and Vulnerability"
+                title="Drag to reorder"
+              >⠿</span>
+              <span class="rank-number" aria-label="Rank 1">1</span>
+              <div class="rank-copy">
+                <p class="rank-title">Authentic Voice &amp; Vulnerability</p>
+                <p class="rank-desc">
+                  The student sounds like a real, self-aware teenager—not an AI or an adult.
+                </p>
+              </div>
+              <div class="rank-actions">
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="up"
+                  aria-label="Move Authentic Voice and Vulnerability up"
+                  title="Move up"
+                >↑</button>
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="down"
+                  aria-label="Move Authentic Voice and Vulnerability down"
+                  title="Move down"
+                >↓</button>
+              </div>
+            </li>
+
+            <li
+              class="rank-item"
+              data-key="growth_self_reflection"
+              data-label="Demonstrated Growth & Self-Reflection"
+            >
+              <span
+                class="drag-handle"
+                draggable="true"
+                role="button"
+                tabindex="0"
+                aria-label="Drag Demonstrated Growth and Self-Reflection"
+                title="Drag to reorder"
+              >⠿</span>
+              <span class="rank-number" aria-label="Rank 2">2</span>
+              <div class="rank-copy">
+                <p class="rank-title">Demonstrated Growth &amp; Self-Reflection</p>
+                <p class="rank-desc">
+                  The student does not merely tell a story; they explain how it changed them.
+                </p>
+              </div>
+              <div class="rank-actions">
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="up"
+                  aria-label="Move Demonstrated Growth and Self-Reflection up"
+                  title="Move up"
+                >↑</button>
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="down"
+                  aria-label="Move Demonstrated Growth and Self-Reflection down"
+                  title="Move down"
+                >↓</button>
+              </div>
+            </li>
+
+            <li
+              class="rank-item"
+              data-key="narrative_storytelling"
+              data-label="Narrative & Storytelling Quality"
+            >
+              <span
+                class="drag-handle"
+                draggable="true"
+                role="button"
+                tabindex="0"
+                aria-label="Drag Narrative and Storytelling Quality"
+                title="Drag to reorder"
+              >⠿</span>
+              <span class="rank-number" aria-label="Rank 3">3</span>
+              <div class="rank-copy">
+                <p class="rank-title">Narrative &amp; Storytelling Quality</p>
+                <p class="rank-desc">
+                  An engaging hook, strong descriptive writing, and a clear narrative arc.
+                </p>
+              </div>
+              <div class="rank-actions">
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="up"
+                  aria-label="Move Narrative and Storytelling Quality up"
+                  title="Move up"
+                >↑</button>
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="down"
+                  aria-label="Move Narrative and Storytelling Quality down"
+                  title="Move down"
+                >↓</button>
+              </div>
+            </li>
+
+            <li
+              class="rank-item"
+              data-key="intellectual_curiosity_drive"
+              data-label="Intellectual Curiosity & Drive"
+            >
+              <span
+                class="drag-handle"
+                draggable="true"
+                role="button"
+                tabindex="0"
+                aria-label="Drag Intellectual Curiosity and Drive"
+                title="Drag to reorder"
+              >⠿</span>
+              <span class="rank-number" aria-label="Rank 4">4</span>
+              <div class="rank-copy">
+                <p class="rank-title">Intellectual Curiosity &amp; Drive</p>
+                <p class="rank-desc">
+                  The essay demonstrates a passion for learning, problem-solving, or deep thinking.
+                </p>
+              </div>
+              <div class="rank-actions">
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="up"
+                  aria-label="Move Intellectual Curiosity and Drive up"
+                  title="Move up"
+                >↑</button>
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="down"
+                  aria-label="Move Intellectual Curiosity and Drive down"
+                  title="Move down"
+                >↓</button>
+              </div>
+            </li>
+
+            <li
+              class="rank-item"
+              data-key="institutional_values_alignment"
+              data-label="Alignment with Institutional Values"
+            >
+              <span
+                class="drag-handle"
+                draggable="true"
+                role="button"
+                tabindex="0"
+                aria-label="Drag Alignment with Institutional Values"
+                title="Drag to reorder"
+              >⠿</span>
+              <span class="rank-number" aria-label="Rank 5">5</span>
+              <div class="rank-copy">
+                <p class="rank-title">Alignment with Institutional Values</p>
+                <p class="rank-desc">
+                  The student shows qualities such as resilience, leadership, or community-mindedness.
+                </p>
+              </div>
+              <div class="rank-actions">
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="up"
+                  aria-label="Move Alignment with Institutional Values up"
+                  title="Move up"
+                >↑</button>
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="down"
+                  aria-label="Move Alignment with Institutional Values down"
+                  title="Move down"
+                >↓</button>
+              </div>
+            </li>
+
+            <li
+              class="rank-item"
+              data-key="other"
+              data-label="Other"
+            >
+              <span
+                class="drag-handle"
+                draggable="true"
+                role="button"
+                tabindex="0"
+                aria-label="Drag Other successful-essay element"
+                title="Drag to reorder"
+              >⠿</span>
+              <span class="rank-number" aria-label="Rank 6">6</span>
+              <div class="rank-copy">
+                <p class="rank-title">Other</p>
+                <p class="rank-desc">
+                  Add another critical element that is not represented above.
+                </p>
+                <input
+                  class="other-input"
+                  id="success_other"
+                  name="success_other"
+                  aria-label="Other critical element"
+                  placeholder="Optional—please specify"
+                >
+              </div>
+              <div class="rank-actions">
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="up"
+                  aria-label="Move Other successful-essay element up"
+                  title="Move up"
+                >↑</button>
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="down"
+                  aria-label="Move Other successful-essay element down"
+                  title="Move down"
+                >↓</button>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section class="form-card" id="question2Section">
+          <div class="question-heading">
+            <div class="question-number" aria-hidden="true">2</div>
+            <div class="question-copy">
+              <div class="section-kicker">Failure patterns</div>
+              <h2>When an essay “fails” or falls flat, what is usually the primary reason?</h2>
+              <p class="section-intro">Select exactly two.</p>
+            </div>
+          </div>
+
+          <div class="choice-header">
+            <span class="help-text" id="failureHelp">
+              Choose the two patterns you encounter most often.
+            </span>
+            <span
+              class="selection-counter"
+              id="failureCounter"
+              aria-live="polite"
+            >0 of 2 selected</span>
+          </div>
+
+          <div class="choice-grid" id="failureChoices">
+            <div class="choice-card" data-choice-card>
+              <label class="choice-main">
+                <input
+                  type="checkbox"
+                  name="failure_reason"
+                  value="cliche_generic"
+                  data-label="Too cliché or generic"
+                >
+                <span>
+                  <span class="choice-title">Too cliché or generic</span>
+                  <span class="choice-desc">
+                    For example, “The Sports Injury” or “The Mission Trip” essay without a unique spin.
+                  </span>
+                </span>
+              </label>
+            </div>
+
+            <div class="choice-card" data-choice-card>
+              <label class="choice-main">
+                <input
+                  type="checkbox"
+                  name="failure_reason"
+                  value="lacks_self_reflection"
+                  data-label="Lacks self-reflection"
+                >
+                <span>
+                  <span class="choice-title">Lacks self-reflection</span>
+                  <span class="choice-desc">
+                    The essay is 90% describing an event and only 10% reflecting on its impact.
+                  </span>
+                </span>
+              </label>
+            </div>
+
+            <div class="choice-card" data-choice-card>
+              <label class="choice-main">
+                <input
+                  type="checkbox"
+                  name="failure_reason"
+                  value="resume_like"
+                  data-label="Too braggy or résumé-like"
+                >
+                <span>
+                  <span class="choice-title">Too braggy or résumé-like</span>
+                  <span class="choice-desc">
+                    The student lists achievements rather than telling a vulnerable story.
+                  </span>
+                </span>
+              </label>
+            </div>
+
+            <div class="choice-card" data-choice-card>
+              <label class="choice-main">
+                <input
+                  type="checkbox"
+                  name="failure_reason"
+                  value="over_polished"
+                  data-label="Over-polished or over-edited"
+                >
+                <span>
+                  <span class="choice-title">Over-polished or over-edited</span>
+                  <span class="choice-desc">
+                    The writing is grammatically flawless but has lost personality and authentic voice.
+                  </span>
+                </span>
+              </label>
+            </div>
+
+            <div class="choice-card" data-choice-card>
+              <label class="choice-main">
+                <input
+                  type="checkbox"
+                  name="failure_reason"
+                  value="poor_focus_scope"
+                  data-label="Poor focus or scope"
+                >
+                <span>
+                  <span class="choice-title">Poor focus / scope</span>
+                  <span class="choice-desc">
+                    The student tries to tell their whole life story in 650 words instead of focusing on a specific moment.
+                  </span>
+                </span>
+              </label>
+            </div>
+
+            <div class="choice-card" data-choice-card>
+              <label class="choice-main">
+                <input
+                  type="checkbox"
+                  name="failure_reason"
+                  value="someone_else_trap"
+                  data-label="The “Me, Myself, and Someone Else” trap"
+                >
+                <span>
+                  <span class="choice-title">The “Me, Myself, and Someone Else” trap</span>
+                  <span class="choice-desc">
+                    The student writes beautifully about an inspiring grandparent or coach but forgets to write about themselves.
+                  </span>
+                </span>
+              </label>
+            </div>
+
+            <div class="choice-card" data-choice-card>
+              <label class="choice-main">
+                <input
+                  type="checkbox"
+                  name="failure_reason"
+                  value="telling_not_showing"
+                  data-label="Too much telling instead of showing"
+                >
+                <span>
+                  <span class="choice-title">Too much “telling” instead of “showing”</span>
+                  <span class="choice-desc">
+                    The essay relies on abstract claims such as “I am a resilient leader” instead of concrete actions and sensory detail.
+                  </span>
+                </span>
+              </label>
+            </div>
+
+            <div class="choice-card" data-choice-card>
+              <label class="choice-main">
+                <input
+                  type="checkbox"
+                  name="failure_reason"
+                  value="inauthentic_vocabulary"
+                  data-label="Inauthentic vocabulary (The Thesaurus Syndrome)"
+                >
+                <span>
+                  <span class="choice-title">
+                    Inauthentic vocabulary (“The Thesaurus Syndrome”)
+                  </span>
+                  <span class="choice-desc">
+                    Forced complex or archaic words make the writing feel stiff and unnatural.
+                  </span>
+                </span>
+              </label>
+            </div>
+
+            <div class="choice-card" data-choice-card>
+              <label class="choice-main">
+                <input
+                  type="checkbox"
+                  id="failure_other_checkbox"
+                  name="failure_reason"
+                  value="other"
+                  data-label="Other"
+                >
+                <span>
+                  <span class="choice-title">Other</span>
+                  <span class="choice-desc">
+                    Describe another specific pitfall that commonly causes an essay to fall flat.
+                  </span>
+                </span>
+              </label>
+
+              <div class="choice-other">
+                <textarea
+                  id="failure_other_text"
+                  name="failure_other_text"
+                  aria-label="Other essay failure reason"
+                  placeholder="Please describe the specific pitfall"
+                  disabled
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-card" id="question3Section">
+          <div class="question-heading">
+            <div class="question-number" aria-hidden="true">3</div>
+            <div class="question-copy">
+              <div class="section-kicker">Evaluation model</div>
+              <h2>How would you weigh the components of an essay’s overall quality?</h2>
+              <p class="section-intro">
+                Allocate a total of 100 percentage points across the four categories.
+              </p>
+            </div>
+          </div>
+
+          <div class="weight-grid">
+            <div class="weight-card">
+              <div>
+                <p class="weight-title">Content &amp; Reflection</p>
+                <p class="weight-desc">
+                  Depth of self-awareness, growth, and the core message.
+                </p>
+              </div>
+              <div class="weight-input-wrap">
+                <label class="sr-only" for="weight_content_reflection">
+                  Content and Reflection percentage
+                </label>
+                <input
+                  id="weight_content_reflection"
+                  name="weight_content_reflection"
+                  class="weight-input"
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  max="100"
+                  step="1"
+                  required
+                  placeholder="0"
+                >
+                <span class="percent-mark" aria-hidden="true">%</span>
+              </div>
+            </div>
+
+            <div class="weight-card">
+              <div>
+                <p class="weight-title">Tone &amp; Voice</p>
+                <p class="weight-desc">
+                  How authentic, engaging, and distinctive the student’s voice feels.
+                </p>
+              </div>
+              <div class="weight-input-wrap">
+                <label class="sr-only" for="weight_tone_voice">
+                  Tone and Voice percentage
+                </label>
+                <input
+                  id="weight_tone_voice"
+                  name="weight_tone_voice"
+                  class="weight-input"
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  max="100"
+                  step="1"
+                  required
+                  placeholder="0"
+                >
+                <span class="percent-mark" aria-hidden="true">%</span>
+              </div>
+            </div>
+
+            <div class="weight-card">
+              <div>
+                <p class="weight-title">Structure &amp; Flow</p>
+                <p class="weight-desc">
+                  Narrative arc, transitions, pacing, and overall readability.
+                </p>
+              </div>
+              <div class="weight-input-wrap">
+                <label class="sr-only" for="weight_structure_flow">
+                  Structure and Flow percentage
+                </label>
+                <input
+                  id="weight_structure_flow"
+                  name="weight_structure_flow"
+                  class="weight-input"
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  max="100"
+                  step="1"
+                  required
+                  placeholder="0"
+                >
+                <span class="percent-mark" aria-hidden="true">%</span>
+              </div>
+            </div>
+
+            <div class="weight-card">
+              <div>
+                <p class="weight-title">Mechanics &amp; Style</p>
+                <p class="weight-desc">
+                  Grammar, vocabulary, syntax, and polish.
+                </p>
+              </div>
+              <div class="weight-input-wrap">
+                <label class="sr-only" for="weight_mechanics_style">
+                  Mechanics and Style percentage
+                </label>
+                <input
+                  id="weight_mechanics_style"
+                  name="weight_mechanics_style"
+                  class="weight-input"
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  max="100"
+                  step="1"
+                  required
+                  placeholder="0"
+                >
+                <span class="percent-mark" aria-hidden="true">%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="total-card" id="weightTotalCard" aria-live="polite">
+            <div class="total-topline">
+              <span>The four categories must total exactly 100%.</span>
+              <span class="total-value" id="weightTotal">Total: 0%</span>
+            </div>
+            <div
+              class="progress-track"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="0"
+              aria-label="Allocated percentage"
+              id="weightProgress"
+            >
+              <div class="progress-fill" id="weightProgressFill"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-card" id="humanExpertiseSection">
+          <div class="section-kicker">Human expertise</div>
+          <h2>Teach us what experienced essay counseling sees.</h2>
+          <p class="section-intro">
+            These open responses will help us preserve judgment that is difficult to
+            reduce to checklists or simple scores.
+          </p>
+
+          <div class="open-response-grid">
+            <div class="open-response">
+              <div class="question-heading">
+                <div class="question-number" aria-hidden="true">4</div>
+                <div>
+                  <h3>
+                    Can you recall a specific essay you read recently that went from
+                    “good” to “truly great”?
+                  </h3>
+                  <p>
+                    What specific shift, paragraph, or element elevated it?
+                  </p>
+                </div>
+              </div>
+
+              <label class="sr-only" for="great_essay_shift">
+                Describe the change that elevated an essay from good to truly great
+              </label>
+              <textarea
+                id="great_essay_shift"
+                name="great_essay_shift"
+                class="long-response"
+                required
+                placeholder="Describe the before-and-after difference as concretely as possible."
+              ></textarea>
+            </div>
+
+            <div class="open-response">
+              <div class="question-heading">
+                <div class="question-number" aria-hidden="true">5</div>
+                <div>
+                  <h3>
+                    What positive indicator does a human counselor immediately
+                    recognize that a basic computer program might overlook?
+                  </h3>
+                  <p>
+                    Consider nuance, context, voice, cultural meaning, productive risk,
+                    restraint, subtext, or any other signal that simple rules could
+                    misinterpret.
+                  </p>
+                </div>
+              </div>
+
+              <label class="sr-only" for="human_positive_indicator">
+                Describe a positive essay indicator that a computer program might overlook
+              </label>
+              <textarea
+                id="human_positive_indicator"
+                name="human_positive_indicator"
+                class="long-response"
+                required
+                placeholder="Give a specific example and explain why an experienced counselor reads it positively."
+              ></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-card technology-section" id="question6Section">
+          <div class="question-heading">
+            <div class="question-number" aria-hidden="true">6</div>
+            <div class="question-copy">
+              <div class="section-kicker">Supportive capabilities</div>
+              <h2>
+                Which capabilities would most improve your effectiveness when coaching
+                students on their essays?
+              </h2>
+              <p class="section-intro">
+                Rank the six options in order of value. This is the survey’s single
+                technology-focused question.
+              </p>
+            </div>
+          </div>
+
+          <div class="technology-note">
+            The purpose is not to replace consultant judgment. It is to identify where
+            carefully designed tools could reduce friction, provide context, or improve
+            the quality of human coaching.
+          </div>
+
+          <div class="rank-instructions">
+            <span><strong>Rank 1</strong> = highest value</span>
+            <span>Drag items or use the ↑ and ↓ controls.</span>
+            <span>Leave “Other” sixth if you do not wish to add one.</span>
+          </div>
+
+          <ol class="rank-list" id="toolRankList">
+            <li
+              class="rank-item"
+              data-key="topic_distribution"
+              data-label="Past essay topic distribution with outcome context"
+            >
+              <span
+                class="drag-handle"
+                draggable="true"
+                role="button"
+                tabindex="0"
+                aria-label="Drag Past essay topic distribution with outcome context"
+                title="Drag to reorder"
+              >⠿</span>
+              <span class="rank-number" aria-label="Rank 1">1</span>
+              <div class="rank-copy">
+                <p class="rank-title">
+                  Past essay topic distribution with outcome context
+                </p>
+                <p class="rank-desc">
+                  Summarize essay topics in prior applications, with careful outcome
+                  context where validated data is available.
+                </p>
+              </div>
+              <div class="rank-actions">
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="up"
+                  aria-label="Move Past essay topic distribution with outcome context up"
+                  title="Move up"
+                >↑</button>
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="down"
+                  aria-label="Move Past essay topic distribution with outcome context down"
+                  title="Move down"
+                >↓</button>
+              </div>
+            </li>
+
+            <li
+              class="rank-item"
+              data-key="topic_recommender"
+              data-label="Essay topic recommender"
+            >
+              <span
+                class="drag-handle"
+                draggable="true"
+                role="button"
+                tabindex="0"
+                aria-label="Drag Essay topic recommender"
+                title="Drag to reorder"
+              >⠿</span>
+              <span class="rank-number" aria-label="Rank 2">2</span>
+              <div class="rank-copy">
+                <p class="rank-title">Essay topic recommender</p>
+                <p class="rank-desc">
+                  Suggest promising essay directions from a student’s activities,
+                  background, and prompt while preserving consultant judgment.
+                </p>
+              </div>
+              <div class="rank-actions">
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="up"
+                  aria-label="Move Essay topic recommender up"
+                  title="Move up"
+                >↑</button>
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="down"
+                  aria-label="Move Essay topic recommender down"
+                  title="Move down"
+                >↓</button>
+              </div>
+            </li>
+
+            <li
+              class="rank-item"
+              data-key="essay_scorer"
+              data-label="Essay scorer"
+            >
+              <span
+                class="drag-handle"
+                draggable="true"
+                role="button"
+                tabindex="0"
+                aria-label="Drag Essay scorer"
+                title="Drag to reorder"
+              >⠿</span>
+              <span class="rank-number" aria-label="Rank 3">3</span>
+              <div class="rank-copy">
+                <p class="rank-title">Essay scorer</p>
+                <p class="rank-desc">
+                  Provide structured feedback on clarity, specificity, voice, risk,
+                  distinctiveness, and alignment with the prompt.
+                </p>
+              </div>
+              <div class="rank-actions">
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="up"
+                  aria-label="Move Essay scorer up"
+                  title="Move up"
+                >↑</button>
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="down"
+                  aria-label="Move Essay scorer down"
+                  title="Move down"
+                >↓</button>
+              </div>
+            </li>
+
+            <li
+              class="rank-item"
+              data-key="essay_ranker"
+              data-label="Essay ranker / comparison tool"
+            >
+              <span
+                class="drag-handle"
+                draggable="true"
+                role="button"
+                tabindex="0"
+                aria-label="Drag Essay ranker or comparison tool"
+                title="Drag to reorder"
+              >⠿</span>
+              <span class="rank-number" aria-label="Rank 4">4</span>
+              <div class="rank-copy">
+                <p class="rank-title">Essay ranker / comparison tool</p>
+                <p class="rank-desc">
+                  Compare drafts or compare a student’s essay with anonymized patterns
+                  from past essays to support revision decisions.
+                </p>
+              </div>
+              <div class="rank-actions">
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="up"
+                  aria-label="Move Essay ranker or comparison tool up"
+                  title="Move up"
+                >↑</button>
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="down"
+                  aria-label="Move Essay ranker or comparison tool down"
+                  title="Move down"
+                >↓</button>
+              </div>
+            </li>
+
+            <li
+              class="rank-item"
+              data-key="school_recommender"
+              data-label="School recommender from Common App statement"
+            >
+              <span
+                class="drag-handle"
+                draggable="true"
+                role="button"
+                tabindex="0"
+                aria-label="Drag School recommender from Common App statement"
+                title="Drag to reorder"
+              >⠿</span>
+              <span class="rank-number" aria-label="Rank 5">5</span>
+              <div class="rank-copy">
+                <p class="rank-title">
+                  School recommender from Common App statement
+                </p>
+                <p class="rank-desc">
+                  Identify schools that may value themes, interests, or strengths
+                  reflected in the Common App main statement.
+                </p>
+              </div>
+              <div class="rank-actions">
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="up"
+                  aria-label="Move School recommender from Common App statement up"
+                  title="Move up"
+                >↑</button>
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="down"
+                  aria-label="Move School recommender from Common App statement down"
+                  title="Move down"
+                >↓</button>
+              </div>
+            </li>
+
+            <li
+              class="rank-item"
+              data-key="other"
+              data-label="Other"
+            >
+              <span
+                class="drag-handle"
+                draggable="true"
+                role="button"
+                tabindex="0"
+                aria-label="Drag Other helpful capability"
+                title="Drag to reorder"
+              >⠿</span>
+              <span class="rank-number" aria-label="Rank 6">6</span>
+              <div class="rank-copy">
+                <p class="rank-title">Other</p>
+                <p class="rank-desc">
+                  Add another capability that would materially improve your essay-coaching work.
+                </p>
+                <input
+                  class="other-input"
+                  id="tool_other"
+                  name="tool_other"
+                  aria-label="Other helpful essay-coaching capability"
+                  placeholder="Optional—please specify"
+                >
+              </div>
+              <div class="rank-actions">
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="up"
+                  aria-label="Move Other helpful capability up"
+                  title="Move up"
+                >↑</button>
+                <button
+                  type="button"
+                  class="icon-button"
+                  data-move="down"
+                  aria-label="Move Other helpful capability down"
+                  title="Move down"
+                >↓</button>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <div class="submit-bar">
+          <div
+            class="status"
+            id="status"
+            role="status"
+            aria-live="polite"
+          ></div>
+          <button type="submit" class="submit" id="submitButton">
+            Submit response
+          </button>
+        </div>
+
+        <div class="sr-only" id="rankAnnouncement" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <div class="footer">
+      Ilumin Admissions Analytics — consultant-defined, human-centered design
+    </div>
+  </main>
+
+  <script>
+    // ===================================================================
+    // SUBMISSION ENDPOINT CONFIGURATION
+    // -------------------------------------------------------------------
+    // This preserves the currently deployed Google Apps Script endpoint.
+    // The backend will be updated next to accept the new v2 payload schema.
+    // ===================================================================
+    const SUBMISSION_ENDPOINT =
+      'https://script.google.com/macros/s/AKfycby3_c2J8stTjzD6a6_XYSbmSEOLEIFMvOLrXnn_GzjXRg-kUgzgg-unC1ANLcLaE0Sigw/exec';
+
+    const FORM_ID = 'ilumin_essay_expertise_survey';
+    const FORM_VERSION = '2.0.0';
+
+    const form = document.getElementById('feedbackForm');
+    const statusElement = document.getElementById('status');
+    const submitButton = document.getElementById('submitButton');
+    const successBanner = document.getElementById('successBanner');
+    const rankAnnouncement = document.getElementById('rankAnnouncement');
+
+    const initialRankOrders = {};
+
+    function initializeRankList(list) {
+      initialRankOrders[list.id] = Array
+        .from(list.querySelectorAll('.rank-item'))
+        .map(item => item.dataset.key);
+
+      list.querySelectorAll('.drag-handle').forEach(handle => {
+        handle.addEventListener('dragstart', event => {
+          const item = handle.closest('.rank-item');
+          item.classList.add('dragging');
+          event.dataTransfer.effectAllowed = 'move';
+          event.dataTransfer.setData('text/plain', item.dataset.key);
+        });
+
+        handle.addEventListener('dragend', () => {
+          const item = handle.closest('.rank-item');
+          item.classList.remove('dragging');
+          updateRankDisplay(list);
+          announceRank(item, list);
+        });
+      });
+
+      list.addEventListener('dragover', event => {
+        event.preventDefault();
+
+        const draggingItem = list.querySelector('.rank-item.dragging');
+        if (!draggingItem) return;
+
+        const afterElement = getDragAfterElement(list, event.clientY);
+
+        if (afterElement === null) {
+          list.appendChild(draggingItem);
+        } else {
+          list.insertBefore(draggingItem, afterElement);
+        }
+      });
+
+      list.addEventListener('drop', event => {
+        event.preventDefault();
+        updateRankDisplay(list);
+      });
+
+      list.addEventListener('click', event => {
+        const moveButton = event.target.closest('[data-move]');
+        if (!moveButton) return;
+
+        const item = moveButton.closest('.rank-item');
+        const direction = moveButton.dataset.move;
+
+        if (direction === 'up' && item.previousElementSibling) {
+          list.insertBefore(item, item.previousElementSibling);
+        }
+
+        if (direction === 'down' && item.nextElementSibling) {
+          list.insertBefore(item.nextElementSibling, item);
+        }
+
+        updateRankDisplay(list);
+        announceRank(item, list);
+        moveButton.focus();
+      });
+
+      updateRankDisplay(list);
+    }
+
+    function getDragAfterElement(list, pointerY) {
+      const candidates = Array.from(
+        list.querySelectorAll('.rank-item:not(.dragging)')
+      );
+
+      return candidates.reduce(
+        (closest, candidate) => {
+          const box = candidate.getBoundingClientRect();
+          const offset = pointerY - box.top - box.height / 2;
+
+          if (offset < 0 && offset > closest.offset) {
+            return { offset, element: candidate };
+          }
+
+          return closest;
+        },
+        { offset: Number.NEGATIVE_INFINITY, element: null }
+      ).element;
+    }
+
+    function updateRankDisplay(list) {
+      const items = Array.from(list.querySelectorAll('.rank-item'));
+
+      items.forEach((item, index) => {
+        const rank = index + 1;
+        const rankNumber = item.querySelector('.rank-number');
+        const upButton = item.querySelector('[data-move="up"]');
+        const downButton = item.querySelector('[data-move="down"]');
+
+        item.dataset.rank = String(rank);
+        rankNumber.textContent = String(rank);
+        rankNumber.setAttribute('aria-label', `Rank ${rank}`);
+        upButton.disabled = index === 0;
+        downButton.disabled = index === items.length - 1;
+      });
+    }
+
+    function announceRank(item, list) {
+      const rank = Number(item.dataset.rank);
+      const groupName =
+        list.id === 'successRankList'
+          ? 'successful-essay elements'
+          : 'supportive capabilities';
+
+      rankAnnouncement.textContent =
+        `${item.dataset.label} is now rank ${rank} among ${groupName}.`;
+    }
+
+    function resetRankList(list) {
+      const order = initialRankOrders[list.id] || [];
+      const itemsByKey = {};
+
+      list.querySelectorAll('.rank-item').forEach(item => {
+        itemsByKey[item.dataset.key] = item;
+      });
+
+      order.forEach(key => {
+        if (itemsByKey[key]) list.appendChild(itemsByKey[key]);
+      });
+
+      updateRankDisplay(list);
+    }
+
+    function getRankedItems(listId, otherInputId) {
+      const list = document.getElementById(listId);
+      const otherText = document.getElementById(otherInputId).value.trim();
+
+      return Array.from(list.querySelectorAll('.rank-item')).map(
+        (item, index) => {
+          const result = {
+            rank: index + 1,
+            key: item.dataset.key,
+            label: item.dataset.label
+          };
+
+          if (item.dataset.key === 'other') {
+            result.other_text = otherText;
+          }
+
+          return result;
+        }
+      );
+    }
+
+    function getFailureBoxes() {
+      return Array.from(
+        document.querySelectorAll('input[name="failure_reason"]')
+      );
+    }
+
+    function updateFailureState(changedBox = null) {
+      const boxes = getFailureBoxes();
+      let checked = boxes.filter(box => box.checked);
+
+      if (checked.length > 2 && changedBox) {
+        changedBox.checked = false;
+        checked = boxes.filter(box => box.checked);
+        showStatus('Please select exactly two failure patterns.', 'error');
+      }
+
+      const atLimit = checked.length === 2;
+      const otherCheckbox = document.getElementById('failure_other_checkbox');
+      const otherText = document.getElementById('failure_other_text');
+      const counter = document.getElementById('failureCounter');
+
+      boxes.forEach(box => {
+        box.disabled = atLimit && !box.checked;
+
+        const card = box.closest('[data-choice-card]');
+        card.classList.toggle('selected', box.checked);
+        card.classList.toggle('disabled', box.disabled);
+      });
+
+      otherText.disabled = !otherCheckbox.checked;
+      otherText.required = otherCheckbox.checked;
+
+      if (!otherCheckbox.checked) {
+        otherText.setCustomValidity('');
+      }
+
+      counter.textContent = `${checked.length} of 2 selected`;
+      counter.classList.toggle('complete', checked.length === 2);
+      counter.classList.toggle('warning', checked.length !== 2);
+    }
+
+    function getFailureSelections() {
+      const otherText = document
+        .getElementById('failure_other_text')
+        .value
+        .trim();
+
+      return getFailureBoxes()
+        .filter(box => box.checked)
+        .map(box => {
+          const result = {
+            key: box.value,
+            label: box.dataset.label
+          };
+
+          if (box.value === 'other') {
+            result.other_text = otherText;
+          }
+
+          return result;
+        });
+    }
+
+    function readWeightValue(id) {
+      const raw = document.getElementById(id).value;
+      return raw === '' ? 0 : Number(raw);
+    }
+
+    function getWeights() {
+      const weights = {
+        content_reflection: readWeightValue('weight_content_reflection'),
+        tone_voice: readWeightValue('weight_tone_voice'),
+        structure_flow: readWeightValue('weight_structure_flow'),
+        mechanics_style: readWeightValue('weight_mechanics_style')
+      };
+
+      weights.total = Object.values(weights).reduce(
+        (sum, value) => sum + Number(value || 0),
+        0
+      );
+
+      return weights;
+    }
+
+    function updateWeightTotal() {
+      const weights = getWeights();
+      const total = weights.total;
+      const totalCard = document.getElementById('weightTotalCard');
+      const totalLabel = document.getElementById('weightTotal');
+      const progress = document.getElementById('weightProgress');
+      const fill = document.getElementById('weightProgressFill');
+
+      totalLabel.textContent = `Total: ${total}%`;
+      fill.style.width = `${Math.min(Math.max(total, 0), 100)}%`;
+      progress.setAttribute(
+        'aria-valuenow',
+        String(Math.min(Math.max(total, 0), 100))
+      );
+
+      totalCard.classList.toggle('complete', total === 100);
+      totalCard.classList.toggle('over', total > 100);
+    }
+
+    function generateResponseId() {
+      if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+        return window.crypto.randomUUID();
+      }
+
+      return [
+        Date.now().toString(36),
+        Math.random().toString(36).slice(2, 10)
+      ].join('-');
+    }
+
+    function collectPayload() {
+      const weights = getWeights();
+
+      return {
+        schema_version: '2.0',
+        form_id: FORM_ID,
+        form_version: FORM_VERSION,
+        response_id: generateResponseId(),
+        submitted_at_utc: new Date().toISOString(),
+        timezone:
+          Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown',
+
+        respondent: {
+          consultant_name:
+            document.getElementById('consultant_name').value.trim(),
+          role_or_team:
+            document.getElementById('role_or_team').value.trim(),
+          email:
+            document.getElementById('email').value.trim(),
+          years_experience:
+            document.getElementById('years_experience').value,
+          primary_student_segments:
+            document.getElementById('primary_student_segments').value.trim()
+        },
+
+        essay_framework: {
+          success_elements_ranked:
+            getRankedItems('successRankList', 'success_other'),
+          failure_reasons_selected:
+            getFailureSelections(),
+          component_weights_pct: weights
+        },
+
+        human_expertise: {
+          great_essay_shift:
+            document.getElementById('great_essay_shift').value.trim(),
+          human_positive_indicator:
+            document.getElementById('human_positive_indicator').value.trim()
+        },
+
+        tool_support: {
+          ranked_capabilities:
+            getRankedItems('toolRankList', 'tool_other')
+        },
+
+        client_context: {
+          user_agent: navigator.userAgent,
+          page_url: window.location.href
+        }
+      };
+    }
+
+    function clearValidationHighlights() {
+      document
+        .querySelectorAll('.invalid-section')
+        .forEach(section => section.classList.remove('invalid-section'));
+    }
+
+    function focusSection(section, message) {
+      section.classList.add('invalid-section');
+      showStatus(message, 'error');
+      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function validateSurvey() {
+      clearValidationHighlights();
+
+      const respondentInvalid =
+        document.querySelector('#respondentSection :invalid');
+
+      if (respondentInvalid) {
+        respondentInvalid.reportValidity();
+        focusSection(
+          document.getElementById('respondentSection'),
+          'Please complete the required respondent information.'
+        );
+        return false;
+      }
+
+      const failureSelections = getFailureSelections();
+
+      if (failureSelections.length !== 2) {
+        focusSection(
+          document.getElementById('question2Section'),
+          'Please select exactly two reasons an essay commonly falls flat.'
+        );
+        return false;
+      }
+
+      const otherFailureSelected = failureSelections.some(
+        selection => selection.key === 'other'
+      );
+      const otherFailureText =
+        document.getElementById('failure_other_text');
+
+      if (
+        otherFailureSelected &&
+        otherFailureText.value.trim().length === 0
+      ) {
+        otherFailureText.setCustomValidity(
+          'Please describe the other failure pattern.'
+        );
+        otherFailureText.reportValidity();
+        focusSection(
+          document.getElementById('question2Section'),
+          'Please describe the “Other” failure pattern you selected.'
+        );
+        return false;
+      }
+
+      otherFailureText.setCustomValidity('');
+
+      const weightInvalid =
+        document.querySelector('#question3Section :invalid');
+
+      if (weightInvalid) {
+        weightInvalid.reportValidity();
+        focusSection(
+          document.getElementById('question3Section'),
+          'Please enter a value from 0 to 100 for each evaluation component.'
+        );
+        return false;
+      }
+
+      const weights = getWeights();
+
+      if (weights.total !== 100) {
+        focusSection(
+          document.getElementById('question3Section'),
+          `The evaluation weights currently total ${weights.total}%. Please adjust them to exactly 100%.`
+        );
+        return false;
+      }
+
+      const expertiseInvalid =
+        document.querySelector('#humanExpertiseSection :invalid');
+
+      if (expertiseInvalid) {
+        expertiseInvalid.reportValidity();
+        focusSection(
+          document.getElementById('humanExpertiseSection'),
+          'Please complete both human-expertise questions.'
+        );
+        return false;
+      }
+
+      return true;
+    }
+
+    function showStatus(message, type = '') {
+      statusElement.className = 'status';
+
+      if (type) {
+        statusElement.classList.add(type);
+      }
+
+      statusElement.textContent = message;
+    }
+
+    function resetSurvey() {
+      form.reset();
+
+      resetRankList(document.getElementById('successRankList'));
+      resetRankList(document.getElementById('toolRankList'));
+
+      updateFailureState();
+      updateWeightTotal();
+      clearValidationHighlights();
+    }
+
+    function handleSubmit(event) {
+      event.preventDefault();
+
+      successBanner.hidden = true;
+      showStatus('');
+
+      const endpoint = SUBMISSION_ENDPOINT.trim();
+      const isConfigured =
+        endpoint.length > 0 &&
+        endpoint.includes('/exec');
+
+      if (!isConfigured) {
+        showStatus(
+          'This form is not connected yet. Please contact the project lead.',
+          'error'
+        );
+        return;
+      }
+
+      if (!validateSurvey()) {
+        return;
+      }
+
+      submitButton.disabled = true;
+      showStatus('Submitting your response…');
+
+      const payload = collectPayload();
+
+      submitViaHiddenForm(
+        endpoint,
+        payload,
+        () => {
+          resetSurvey();
+          submitButton.disabled = false;
+          showStatus('Response submitted successfully.', 'success');
+          successBanner.hidden = false;
+          successBanner.focus();
+          successBanner.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+        },
+        () => {
+          submitButton.disabled = false;
+          showStatus(
+            'The response may not have been submitted. Please refresh and try again, or contact the project lead.',
+            'error'
+          );
+        }
+      );
+    }
+
+    function submitViaHiddenForm(endpoint, payload, onSuccess, onError) {
+      const frameName = `essay_feedback_${Date.now()}`;
+      const iframe = document.createElement('iframe');
+      const hiddenForm = document.createElement('form');
+      const payloadField = document.createElement('input');
+
+      let completed = false;
+      let submitted = false;
+      let loadCount = 0;
+      let fallbackTimer = null;
+
+      iframe.name = frameName;
+      iframe.src = 'about:blank';
+      iframe.style.display = 'none';
+      iframe.setAttribute('aria-hidden', 'true');
+
+      hiddenForm.method = 'POST';
+      hiddenForm.action = endpoint;
+      hiddenForm.target = frameName;
+      hiddenForm.style.display = 'none';
+
+      payloadField.type = 'hidden';
+      payloadField.name = 'payload';
+      payloadField.value = JSON.stringify(payload);
+      hiddenForm.appendChild(payloadField);
+
+      const cleanup = () => {
+        if (fallbackTimer) {
+          window.clearTimeout(fallbackTimer);
+        }
+
+        window.setTimeout(() => {
+          hiddenForm.remove();
+          iframe.remove();
+        }, 500);
+      };
+
+      const completeSuccessfully = () => {
+        if (completed) return;
+        completed = true;
+        cleanup();
+        onSuccess();
+      };
+
+      iframe.addEventListener('load', () => {
+        loadCount += 1;
+
+        // One load is the blank iframe; the next is the Apps Script response.
+        if (submitted && loadCount >= 2) {
+          completeSuccessfully();
+        }
+      });
+
+      iframe.addEventListener('error', () => {
+        if (completed) return;
+        completed = true;
+        cleanup();
+        onError();
+      });
+
+      document.body.appendChild(iframe);
+      document.body.appendChild(hiddenForm);
+
+      try {
+        submitted = true;
+        hiddenForm.submit();
+
+        // Cross-origin form posts cannot expose a conventional fetch response.
+        // This fallback preserves the working behavior of the production form.
+        fallbackTimer = window.setTimeout(
+          completeSuccessfully,
+          3200
+        );
+      } catch (error) {
+        if (completed) return;
+        completed = true;
+        cleanup();
+        onError(error);
+      }
+    }
+
+    document
+      .querySelectorAll('.rank-list')
+      .forEach(initializeRankList);
+
+    getFailureBoxes().forEach(box => {
+      box.addEventListener('change', () => {
+        updateFailureState(box);
+        clearValidationHighlights();
+      });
+    });
+
+    document
+      .querySelectorAll('.weight-input')
+      .forEach(input => {
+        input.addEventListener('input', () => {
+          updateWeightTotal();
+          document
+            .getElementById('question3Section')
+            .classList.remove('invalid-section');
+        });
+      });
+
+    document
+      .getElementById('failure_other_text')
+      .addEventListener('input', event => {
+        event.target.setCustomValidity('');
+      });
+
+    updateFailureState();
+    updateWeightTotal();
+  </script>
+</body>
+</html>
